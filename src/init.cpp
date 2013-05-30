@@ -96,6 +96,7 @@ void Shutdown()
     RenameThread("bitcoin-shutoff");
     nTransactionsUpdated++;
     StopRPCThreads();
+    ShutdownRPCMining();
     bitdb.Flush(false);
     StopNode();
     {
@@ -1082,6 +1083,8 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     StartNode(threadGroup);
 
+    // InitRPCMining is needed here so getwork/getblocktemplate in the GUI debug console works properly.
+    InitRPCMining();
     if (fServer)
         StartRPCThreads();
 
