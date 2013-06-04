@@ -11,6 +11,7 @@ packages:
 - "faketime"
 - "wine"
 - "psmisc"
+- "m4"
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
@@ -20,6 +21,7 @@ files:
 - "zlib-1.2.6.tar.gz"
 - "libpng-1.5.9.tar.gz"
 - "qrencode-3.2.0.tar.bz2"
+- "gmp-5.0.5.tar.xz"
 script: |
   #
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
@@ -63,10 +65,20 @@ script: |
   make $MAKEOPTS
   cd ..
   #
-  zip -r $OUTDIR/bitcoin-deps-0.0.5.zip \
+  tar xJf gmp-5.0.5.tar.xz
+  cd gmp-5.0.5
+  ./configure CC=i586-mingw32msvc-cc AR=i586-mingw32msvc-ar STRIP=i586-mingw32msvc-strip RANLIB=i586-mingw32msvc-ranlib OBJDUMP=i586-mingw32msvc-objdump LD=i586-mingw32msvc-ld --host=i586-mingw32msvc
+  ## FIXME NOT DETERMINISTIC: make gets stuck in a loop running ./config.status with libfaketime
+  unset LD_PRELOAD
+  make $MAKEOPTS
+  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  cd ..
+  #
+  zip -r $OUTDIR/bitcoin-deps-0.0.6.zip \
     $(ls qrencode-*/{qrencode.h,.libs/libqrencode.{,l}a} | sort) \
     $(ls db-*/build_unix/{libdb_cxx.a,db.h,db_cxx.h,libdb.a,.libs/libdb_cxx-?.?.a} | sort) \
     $(find openssl-* -name '*.a' -o -name '*.h' | sort) \
-    $(find miniupnpc -name '*.h' -o -name 'libminiupnpc.a' | sort)
+    $(find miniupnpc -name '*.h' -o -name 'libminiupnpc.a' | sort) \
+    $(find gmp-* -name '*.a' -o -name '*.la' -o -name '*.h' | sort)
   # Kill wine processes as gitian won't figure out we are done otherwise
   killall wineserver services.exe explorer.exe winedevice.exe
