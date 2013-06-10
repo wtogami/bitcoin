@@ -10,6 +10,10 @@
 #include "ui_interface.h"
 #include "script.h"
 
+#if defined(HAVE_CONFIG_H)
+#include "bitcoin-config.h"
+#endif
+
 #ifdef WIN32
 #include <string.h>
 #endif
@@ -19,6 +23,10 @@
 #include <miniupnpc/miniupnpc.h>
 #include <miniupnpc/upnpcommands.h>
 #include <miniupnpc/upnperrors.h>
+#endif
+
+#if !defined(HAVE_MSG_NOSIGNAL)
+#define MSG_NOSIGNAL 0
 #endif
 
 using namespace std;
