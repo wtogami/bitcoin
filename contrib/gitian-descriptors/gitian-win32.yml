@@ -23,7 +23,7 @@ script: |
   STAGING=$HOME/staging
   mkdir -p $STAGING
   cd $STAGING
-  unzip ../build/qt-win32-4.8.3-gitian-r1.zip
+  unzip ../qt-win32-4.8.3-gitian-r1.zip
   unzip ../boost-win32-1.50.0-gitian3.zip
   unzip ../bitcoin-deps-0.0.6.zip
   find -type f | xargs touch --date="$REFERENCE_DATETIME"
