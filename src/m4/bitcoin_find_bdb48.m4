@@ -4,7 +4,7 @@ AC_DEFUN([BITCOIN_FIND_BDB48],[
   BDB_LIBS=
   bdbpath=X
   bdb48path=X
-  for searchpath in bdb4.8 bdb48 db4.8 db48 bdb5 db5 bdb db ''; do
+  for searchpath in bdb4.8 bdb48 db4.8 db48 libdb4 bdb5 db5 bdb db ''; do
     test -n "${searchpath}" && searchpath="${searchpath}/"
     AC_TRY_COMPILE([
       #include <${searchpath}db_cxx.h>
