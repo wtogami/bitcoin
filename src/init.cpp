@@ -501,6 +501,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     fPrintToConsole = GetBoolArg("-printtoconsole", false);
     fPrintToDebugger = GetBoolArg("-printtodebugger", false);
     fLogTimestamps = GetBoolArg("-logtimestamps", false);
+    bool fDisableWallet = GetBoolArg("-disablewallet", false);
 
     if (mapArgs.count("-timeout"))
     {
@@ -589,7 +590,7 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     // ********************************************************* Step 5: verify wallet database integrity
 
-    if (1) {
+    if (!fDisableWallet) {
         uiInterface.InitMessage(_("Verifying wallet..."));
 
         if (!bitdb.Open(GetDataDir()))
@@ -633,7 +634,7 @@ bool AppInit2(boost::thread_group& threadGroup)
             if (r == CDBEnv::RECOVER_FAIL)
                 return InitError(_("wallet.dat corrupt, salvage failed"));
         }
-    } // (1)
+    } // (!fDisableWallet)
 
     // ********************************************************* Step 6: network initialization
 
@@ -902,7 +903,10 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     // ********************************************************* Step 8: load wallet
 
-    if (1) {
+    if (fDisableWallet) {
+        uiInterface.InitMessage(_("Wallet disabled!"));
+        pwalletMain = NULL;
+    } else {
         uiInterface.InitMessage(_("Loading wallet..."));
 
         nStart = GetTimeMillis();
@@ -988,7 +992,8 @@ bool AppInit2(boost::thread_group& threadGroup)
             LogPrintf(" rescan      %15"PRI64d"ms\n", GetTimeMillis() - nStart);
             pwalletMain->SetBestChain(chainActive.GetLocator());
             nWalletDBUpdated++;
-        } //(1)
+        }
+    } // (!fDisableWallet)
 
     // ********************************************************* Step 9: import blocks
 
