@@ -4593,11 +4593,11 @@ void static LitecoinMiner(CWallet *pwallet)
                 scrypt_1024_1_1_256_sp_sse2(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad);
 #else
                 // Detect SSE2: 32bit x86 Linux or Windows
-                scrypt_1024_1_1_256_sp(BEGIN(pblock->nVersion), BEGIN(thash, scratchpad);
+                scrypt_1024_1_1_256_sp(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad);
 #endif
 #else
                 // Generic scrypt
-                scrypt_1024_1_1_256_sp_generic(BEGIN(pblock->nVersion), BEGIN(thash, scratchpad);
+                scrypt_1024_1_1_256_sp_generic(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad);
 #endif
 
                 if (thash <= hashTarget)
