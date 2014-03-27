@@ -136,6 +136,10 @@ libbitcoin_common_a_SOURCES = \
   version.cpp \
   $(BITCOIN_CORE_H)
 
+if GLIBC_BACK_COMPAT
+libbitcoin_common_a_SOURCES += glibc_compat.cpp
+endif
+
 libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
   $(BITCOIN_CORE_H)
