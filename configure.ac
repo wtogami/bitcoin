@@ -330,6 +330,10 @@ if test x$use_glibc_compat != xno; then
   if test x$use_glibc_compat = xyes && test x$enable_glibc_compat = xno; then
     AC_ERROR(Could not enable glibc back-compat. Use --disable-glibc-back-compat)
   fi
+
+  if test x$enable_glibc_compat = xyes; then
+    AX_CHECK_LINK_FLAG([[-static-libstdc++ -rdynamic]],[GLIBC_LDFLAGS="$GLIBC_LDFLAGS -static-libstdc++ -rdynamic"])
+  fi
 fi
 
 if test x$use_hardening != xno; then
