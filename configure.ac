@@ -326,14 +326,21 @@ if test x$use_glibc_compat != xno; then
     ],
     [AC_MSG_RESULT(yes); GLIBC_LDFLAGS="$GLIBC_WRAP"; enable_glibc_compat=yes],
     [AC_MSG_RESULT(no)]; enable_glibc_compat=no)
+
+  AC_MSG_CHECKING(__fdelt_chk type)
+  AC_TRY_COMPILE([#define __USE_FORTIFY_LEVEL 2
+                  #include <sys/select.h>
+     extern "C" long unsigned int __fdelt_warn(long unsigned int);],[],
+    [ fdelt_type="long unsigned int"],
+    [ fdelt_type="long int"])
+  AC_MSG_RESULT($fdelt_type)
+  AC_DEFINE_UNQUOTED(FDELT_TYPE, $fdelt_type,[paramater and return value type for __fdelt_chk])
+
   LDFLAGS="$TEMP_LDFLAGS"
   if test x$use_glibc_compat = xyes && test x$enable_glibc_compat = xno; then
     AC_ERROR(Could not enable glibc back-compat. Use --disable-glibc-back-compat)
   fi
 
-  if test x$enable_glibc_compat = xyes; then
-    AX_CHECK_LINK_FLAG([[-static-libstdc++ -rdynamic]],[GLIBC_LDFLAGS="$GLIBC_LDFLAGS -static-libstdc++ -rdynamic"])
-  fi
 fi
 
 if test x$use_hardening != xno; then

@@ -138,6 +138,7 @@ libbitcoin_common_a_SOURCES = \
 
 if GLIBC_BACK_COMPAT
 libbitcoin_common_a_SOURCES += glibc_compat.cpp
+libbitcoin_common_a_SOURCES += glibcxx_compat.cpp
 endif
 
 libbitcoin_cli_a_SOURCES = \
