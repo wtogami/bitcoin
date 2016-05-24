@@ -335,6 +335,8 @@ bitcoind_SOURCES = bitcoind.cpp
 bitcoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 bitcoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 bitcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bitcoind_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) $(bitcoind_CXXFLAGS) $(CXXFLAGS) $(bitcoind_LDFLAGS) $(LDFLAGS) -o $(BITCOIN_DAEMON_NAME)$(EXEEXT)
+$(BITCOIN_DAEMON_NAME)$(EXEEXT): bitcoind$(EXEEXT)
 
 if TARGET_WINDOWS
 bitcoind_SOURCES += bitcoind-res.rc
@@ -360,6 +362,8 @@ bitcoin_cli_SOURCES = bitcoin-cli.cpp
 bitcoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 bitcoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 bitcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bitcoin_cli_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) $(bitcoin_cli_CXXFLAGS) $(CXXFLAGS) $(bitcoin_cli_LDFLAGS) $(LDFLAGS) -o $(BITCOIN_CLI_NAME)$(EXEEXT)
+$(BITCOIN_CLI_NAME)$(EXEEXT): bitcoin-cli$(EXEEXT)
 
 if TARGET_WINDOWS
 bitcoin_cli_SOURCES += bitcoin-cli-res.rc
@@ -379,6 +383,8 @@ bitcoin_tx_SOURCES = bitcoin-tx.cpp
 bitcoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 bitcoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 bitcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bitcoin_tx_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) $(bitcoin_tx_CXXFLAGS) $(CXXFLAGS) $(bitcoin_tx_LDFLAGS) $(LDFLAGS) -o $(BITCOIN_TX_NAME)$(EXEEXT)
+$(BITCOIN_TX_NAME)$(EXEEXT): bitcoin-tx$(EXEEXT)
 
 if TARGET_WINDOWS
 bitcoin_tx_SOURCES += bitcoin-tx-res.rc

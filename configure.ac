@@ -14,10 +14,10 @@ AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([build-aux/m4])
 
-BITCOIN_DAEMON_NAME=bitcoind
-BITCOIN_GUI_NAME=bitcoin-qt
-BITCOIN_CLI_NAME=bitcoin-cli
-BITCOIN_TX_NAME=bitcoin-tx
+BITCOIN_DAEMON_NAME=`$as_echo bitcoind | sed "${program_transform_name}"`
+BITCOIN_GUI_NAME=`$as_echo bitcoin-qt | sed "${program_transform_name}"`
+BITCOIN_CLI_NAME=`$as_echo bitcoin-cli | sed "${program_transform_name}"`
+BITCOIN_TX_NAME=`$as_echo bitcoin-tx | sed "${program_transform_name}"`
 
 AC_CANONICAL_HOST
 

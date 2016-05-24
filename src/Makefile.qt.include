@@ -384,6 +384,8 @@ qt_bitcoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL)
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_bitcoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 qt_bitcoin_qt_LIBTOOLFLAGS = --tag CXX
+qt_bitcoin_qt_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) $(qt_bitcoin_qt_CXXFLAGS) $(CXXFLAGS) $(qt_bitcoin_qt_LDFLAGS) $(LDFLAGS) -o $(BITCOIN_GUI_NAME)$(EXEEXT)
+$(BITCOIN_GUI_NAME)$(EXEEXT): bitcoin-qt$(EXEEXT)
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
